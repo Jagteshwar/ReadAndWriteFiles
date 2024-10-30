@@ -14,22 +14,6 @@ class AddCourseViewModel @Inject constructor(
     private val insertCourse: InsertCourseUseCase
 ): ViewModel() {
 
-    init {
-        viewModelScope.launch {
-            try{
-                insertCourse.invoke(Course(
-                    id = "1",
-                    name = "Math",
-                    teacher = "Mr. Zee"
-                ))
-            }catch(e: IOException){
-                println(e.message)
-            }
-        }
-
-
-    }
-
     fun saveToDB(){
         viewModelScope.launch {
             try{
@@ -39,7 +23,7 @@ class AddCourseViewModel @Inject constructor(
                     teacher = "Mr. Zee"
                 ))
             }catch(e: IOException){
-                println(e.message)
+                println(e.message ?: "Couldn't save course")
             }
         }
     }

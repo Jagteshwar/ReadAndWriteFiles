@@ -32,11 +32,9 @@ fun AlertDialog(
     onDismiss:() ->Unit,
     context: Context,
     courses: List<Course>? = null,
+
 ) {
     val fileViewModel: ReadWriteFileViewModel = hiltViewModel()
-   // val dbViewModel: AddCourseViewModel = hiltViewModel()
-
-    val dataSaved = fileViewModel.savedData.observeAsState().value
 
     androidx.compose.material3.AlertDialog(
         onDismissRequest = onDismiss,
@@ -65,8 +63,8 @@ fun AlertDialog(
                 Button(onClick = {
 
                     courses?.let {
-                        fileViewModel.saveParsedData(it, context.filesDir.path + "/output.csv", "csv")
-                        if(dataSaved==true){
+
+                        if(fileViewModel.saveParsedData(it, context.filesDir.path + "/output.csv", "csv")){
                             Toast.makeText(context, "data stored in csv format", Toast.LENGTH_SHORT).show()
                         }else{
                             Toast.makeText(context, "data FAILED TO store in csv format", Toast.LENGTH_LONG).show()
@@ -78,8 +76,8 @@ fun AlertDialog(
                 }
                 Button(onClick = {
                     courses?.let {
-                        fileViewModel.saveParsedData(it, context.filesDir.path + "/output.json", "json")
-                        if(dataSaved==true){
+
+                        if(fileViewModel.saveParsedData(it, context.filesDir.path + "/output.json", "json")){
                         Toast.makeText(context, "data stored in json format", Toast.LENGTH_SHORT).show()
 
                         }else{
@@ -91,7 +89,6 @@ fun AlertDialog(
                     Text(text = "JSON Format")
                 }
                 Button(onClick = {
-                 //   dbViewModel.saveToDB()
                     Toast.makeText(context, "data stored in db", Toast.LENGTH_SHORT).show()
                 }) {
                     Text(text = "Save to DB")

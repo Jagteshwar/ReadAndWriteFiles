@@ -46,8 +46,8 @@ class ReadWriteFileViewModel : ViewModel() {
         _state.postValue(null)
     }
 
-    fun saveParsedData(data: List<Course>, outputPath: String, format: String) {
-        _dataSaved.postValue(readAndWriteUseCase.saveParsedData(data, outputPath, format))
+    fun saveParsedData(data: List<Course>, outputPath: String, format: String):Boolean {
+        return readAndWriteUseCase.saveParsedData(data, outputPath, format)
     }
 
     fun addCourse(course: Course){

@@ -13,6 +13,6 @@ class CourseRepositoryImpl(
     }
 
     override suspend fun insertCourse(course: Course) {
-        return dao.insertCourse(course)
+         dao.insertCourse(course)
     }
 }

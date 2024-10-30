@@ -41,7 +41,7 @@ class ReadAndWriteFileUseCase {
 
         courseList.clear()
         context.assets.open(fileName).bufferedReader().useLines { lines ->
-            lines.forEach { line -> // Assuming the first line is a header
+            lines.forEach { line ->
                 val values = line.split(",")
                 val id = values[0]
                 val name = values[1]
@@ -64,7 +64,7 @@ class ReadAndWriteFileUseCase {
                     jsonObject.put("teacher", course.teacher)
                     jsonArray.put(jsonObject)
                 }
-                file.writeText(jsonArray.toString(4)) // Pretty print with 4 spaces
+                file.writeText(jsonArray.toString(4))
                 return true
             }
 

@@ -188,7 +188,8 @@ fun FileScreen(
 fun RowItem(it: Course) {
     Row(
         modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.SpaceEvenly
+        horizontalArrangement = Arrangement.SpaceEvenly,
+        verticalAlignment = Alignment.CenterVertically
     ) {
         Text(text = it.id)
         Text(text = it.name)

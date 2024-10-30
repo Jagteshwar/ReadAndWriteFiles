@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
@@ -34,6 +35,8 @@ fun AlertDialog(
 ) {
     val fileViewModel: ReadWriteFileViewModel = hiltViewModel()
    // val dbViewModel: AddCourseViewModel = hiltViewModel()
+
+    val dataSaved = fileViewModel.savedData.observeAsState().value
 
     androidx.compose.material3.AlertDialog(
         onDismissRequest = onDismiss,
@@ -60,20 +63,29 @@ fun AlertDialog(
                 verticalArrangement = Arrangement.Center
             ) {
                 Button(onClick = {
+
                     courses?.let {
-                        fileViewModel
-                            .saveParsedData(it, context.filesDir.path + "/output.csv", "csv")
+                        fileViewModel.saveParsedData(it, context.filesDir.path + "/output.csv", "csv")
+                        if(dataSaved==true){
+                            Toast.makeText(context, "data stored in csv format", Toast.LENGTH_SHORT).show()
+                        }else{
+                            Toast.makeText(context, "data FAILED TO store in csv format", Toast.LENGTH_LONG).show()
+                        }
                     }
-                    Toast.makeText(context, "data stored in csv format", Toast.LENGTH_SHORT).show()
+
                 }) {
                     Text(text = "CSV Format")
                 }
                 Button(onClick = {
                     courses?.let {
-                        fileViewModel
-                            .saveParsedData(it, context.filesDir.path + "/output.json", "json")
+                        fileViewModel.saveParsedData(it, context.filesDir.path + "/output.json", "json")
+                        if(dataSaved==true){
+                        Toast.makeText(context, "data stored in json format", Toast.LENGTH_SHORT).show()
+
+                        }else{
+                        Toast.makeText(context, "data  FAILED TO store in json format", Toast.LENGTH_SHORT).show()
+                        }
                     }
-                    Toast.makeText(context, "data stored in json format", Toast.LENGTH_SHORT).show()
 
                 }) {
                     Text(text = "JSON Format")
